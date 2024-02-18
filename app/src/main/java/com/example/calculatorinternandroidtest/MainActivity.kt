@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.calculatorinternandroidtest.databinding.ActivityMainBinding
-import org.mariuszgromada.math.mxparser.Expression
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
@@ -108,12 +107,8 @@ class MainActivity : AppCompatActivity() {
     private fun showResult() {
         try {
             val expression = getInputExpression()
-            val result = Expression(expression).calculate()
-            if (result.isNaN()) {
-                Toast.makeText(this, "Định dạng đã dùng không hợp lệ", Toast.LENGTH_SHORT).show()
-            } else {
-                binding.output.text = DecimalFormat("0.######").format(result).toString()
-            }
+            val result = EvaluateString.evaluate(expression)
+            binding.output.text = DecimalFormat("0.######").format(result).toString()
         } catch (e: Exception) {
             Toast.makeText(this, "Định dạng đã dùng không hợp lệ", Toast.LENGTH_SHORT).show()
         }
